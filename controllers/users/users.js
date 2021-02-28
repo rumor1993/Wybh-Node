@@ -1,4 +1,6 @@
+const { includes } = require("../../models")
 const models = require("../../models")
+const Message = require("../../models/Message")
 
 exports.findUsers = ( _ , res) => {
     models.Users.findAll({
@@ -37,3 +39,18 @@ exports.updateUsers = ( req , res ) => {
         res.send(user);
     });
 } 
+
+
+exports.findMessageByUsersId = ( req , res) => {
+    models.Users.findAll({
+        where: {id : req.params.id}
+    }).then((users) => {
+        console.log(users)
+        models.Message.findAll({
+            where: {recipient : req.params.id}
+        }).then((message)=>{
+            users.push(message[0])
+            res.send(users)
+        })
+    })
+}

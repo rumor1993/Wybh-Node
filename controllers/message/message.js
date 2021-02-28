@@ -13,12 +13,6 @@ exports.findMessageById = ( req , res) => {
     }) 
 }
 
-exports.findMessageByUsersId = ( req , res) => {
-    models.Message.findByPk(req.params.id).then((message) => {
-        res.send(message);
-    }) 
-}
-
 exports.createMessage = ( req , res ) => {
     models.Message.create(req.body).then(() => {
         res.send("메시지를 성공적으로 보냈습니다")
