@@ -49,8 +49,9 @@ exports.findMessageByUsersId = ( req , res) => {
         models.Message.findAll({
             where: {recipient : req.params.id}
         }).then((message)=>{
-            users.push(message[0])
-            res.send(users)
+            //users.push(message[0])
+            //res.send(users)
+            res.send(message)
         })
     })
 }
