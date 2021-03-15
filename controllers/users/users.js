@@ -41,17 +41,16 @@ exports.updateUsers = ( req , res ) => {
 } 
 
 
-exports.findMessageByUsersId = ( req , res) => {
-    models.Users.findAll({
-        where: {id : req.params.id}
-    }).then((users) => {
-        console.log(users)
-        models.Message.findAll({
-            where: {recipient : req.params.id}
-        }).then((message)=>{
-            //users.push(message[0])
-            //res.send(users)
-            res.send(message)
-        })
+exports.findMessageByUsersId = async ( req , res) => {
+    let list = []
+    const userRooms = await models.UserRooms.findAll({
+        where: {user_id : req.params.id}
     })
+
+    // ROOM_ID를 이용해 받은 메시지가 몇개인지 확인 
+    // userRooms.forEach(element => {
+    //     console.log(element.id)
+    // });
+
+    res.send(userRooms)
 }

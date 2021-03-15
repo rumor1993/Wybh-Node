@@ -14,7 +14,7 @@ router.post('/', controllers.createUsers);
 // Users 수정
 router.put("/:id", controllers.updateUsers);
 
-router.get("/message/:id", controllers.findMessageByUsersId);
+router.get("/rooms/:id", controllers.findMessageByUsersId);
 
 module.exports = router;
 

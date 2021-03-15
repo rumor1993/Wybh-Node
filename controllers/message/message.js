@@ -1,3 +1,4 @@
+const { sequelize } = require("../../models")
 const models = require("../../models")
 const Message = require("../../models/Message")
 
@@ -14,26 +15,57 @@ exports.findMessageById = ( req , res) => {
     }) 
 }
 
-exports.createMessage = ( req , res ) => {
-    models.Message.findAll({
-        where: { sender: req.body.sender, recipient: req.body.recipient }
-    }).then((item) => {
-        if ( item.length > 0) {
-            req.body.room_id = item[0].room_id
-            models.Message.create(req.body).then(() => {
-                createUserRooms(req)
-            })
+exports.createMessage = async ( req , res ) => {
+    let isRandom = true
+
+    if (req.body.recipient) {
+        isRandom = false
+    }
+    
+    if (isRandom) {
+        const randomUser = await models.Users.findAll({
+            order: sequelize.random(),
+            limit: 1
+        })
+
+        const message = await models.Message.findAll({
+            where: {sender: req.body.sender, recipient: randomUser[0].id}
+        })
+
+        if (message.length === 0) {
+            let maxData = await models.Message.max("room_id")
+            if( !maxData ) maxData = 0 
+            req.body.room_id = maxData + 1
+            req.body.recipient = randomUser[0].id
+            const createData = await models.Message.create(req.body)
+            const roomId = createData.room_id
+            findOrCreateUserRooms(req, res, roomId)
         } else {
-            models.Message.max("room_id").then((item) => {
-                if( !item ) item = 0 
-                req.body.room_id = item + 1
-                models.Message.create(req.body).then(() => {
-                    createUserRooms(req)
-                })
-            })
+            res.send("이미 채팅방이 있는경우")
+            // 이미 채팅방이 있는 사람
         }
-    })
+
+    } else {
+        const message = await models.Message.findAll({
+            where: {sender: req.body.sender, recipient: req.body.recipient}
+        })
+
+        if (message.length > 0) {
+            req.body.room_id = message[0].room_id
+            const createData = await models.Message.create(req.body)
+            const roomId = createData.room_id
+            findOrCreateUserRooms(req, res, roomId)
+        } else {
+            let maxData = await models.Message.max("room_id")
+            if( !maxData ) maxData = 0 
+            req.body.room_id = maxData + 1
+            const createData = await models.Message.create(req.body)
+            const roomId = createData.room_id
+            findOrCreateUserRooms(req, res, roomId)
+        }
+    }
 }
+
 
 const findMaxRoomId = async () => {
     let result
@@ -41,12 +73,24 @@ const findMaxRoomId = async () => {
     return result;
 }
 
-const createUserRooms = () => {
-    models.UserRooms.create({
-        user_id : req.body.sender,
-        room_id : req.body.room_id,
-        last_message : req.body.contents,
-    })
+const findOrCreateUserRooms = (req, res, roomId) => {
+    models.UserRooms.findOrCreate({
+        where : {room_id : roomId}, defaults: {
+            user_id : req.body.sender,
+            room_id : req.body.room_id,
+            last_message : req.body.contents,
+            room_user_list : req.body.recipient,    
+        }
+        }).spread((rooms, created) => {
+            if (created) {
+                res.send(rooms)
+            } else {
+                models.UserRooms.update({
+                    last_message : req.body.contents,
+                }, {where: {room_id : req.body.room_id}})
+                res.send(rooms)
+            }
+        }) 
 }
 
 exports.messageRoomValidation = ( req, res ) => {
