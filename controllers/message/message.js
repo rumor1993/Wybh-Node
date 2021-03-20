@@ -93,6 +93,10 @@ const findOrCreateUserRooms = (req, res, roomId) => {
         }) 
 }
 
+exports.messageDelete = (req, res) => {
+    models.Message.destroy()
+}
+
 exports.messageRoomValidation = ( req, res ) => {
     
 }

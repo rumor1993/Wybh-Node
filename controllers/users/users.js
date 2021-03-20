@@ -44,13 +44,22 @@ exports.updateUsers = ( req , res ) => {
 exports.findMessageByUsersId = async ( req , res) => {
     let list = []
     const userRooms = await models.UserRooms.findAll({
-        where: {user_id : req.params.id}
+        include: [
+            {
+                model: models.Message,
+                where: {
+                    recipient: req.params.id    
+                }
+            }
+        ],
+        where: {
+            room_user_list: req.params.id,
+        } 
     })
 
-    // ROOM_ID를 이용해 받은 메시지가 몇개인지 확인 
-    // userRooms.forEach(element => {
-    //     console.log(element.id)
-    // });
-
     res.send(userRooms)
+}
+
+exports.deleteUserRooms = (req, res) => {
+    models.UserRooms.destroy()
 }

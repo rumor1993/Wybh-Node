@@ -8,4 +8,6 @@ router.get("/:id", controllers.findMessageById)
 
 router.post("/", controllers.createMessage)
 
+router.delete("/:id", controllers.messageDelete)
+
 module.exports = router;

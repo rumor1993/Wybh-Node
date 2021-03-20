@@ -11,6 +11,12 @@ module.exports = function(sequelize, DataTypes){
             room_user_list: {type: DataTypes.STRING }
         }
     );
-    
+
+    UserRooms.associate = function (models) {
+        models.UserRooms.hasMany(models.Message, {
+            foreignKey: "room_id"
+        })
+    }
+
     return UserRooms;
 } 
