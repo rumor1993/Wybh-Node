@@ -37,9 +37,8 @@ exports.createMessage = async ( req , res ) => {
             if( !maxData ) maxData = 0 
             req.body.room_id = maxData + 1
             req.body.recipient = randomUser[0].id
-            const createData = await models.Message.create(req.body)
-            const roomId = createData.room_id
-            findOrCreateUserRooms(req, res, roomId)
+            findOrCreateUserRooms(req, res)
+            await models.Message.create(req.body)
         } else {
             res.send("이미 채팅방이 있는경우")
             // 이미 채팅방이 있는 사람
@@ -52,16 +51,14 @@ exports.createMessage = async ( req , res ) => {
 
         if (message.length > 0) {
             req.body.room_id = message[0].room_id
+            findOrCreateUserRooms(req, res)
             const createData = await models.Message.create(req.body)
-            const roomId = createData.room_id
-            findOrCreateUserRooms(req, res, roomId)
         } else {
             let maxData = await models.Message.max("room_id")
             if( !maxData ) maxData = 0 
             req.body.room_id = maxData + 1
+            findOrCreateUserRooms(req, res)
             const createData = await models.Message.create(req.body)
-            const roomId = createData.room_id
-            findOrCreateUserRooms(req, res, roomId)
         }
     }
 }
@@ -75,7 +72,7 @@ const findMaxRoomId = async () => {
 
 const findOrCreateUserRooms = (req, res, roomId) => {
     models.UserRooms.findOrCreate({
-        where : {room_id : roomId}, defaults: {
+        where : {room_id : req.body.room_id}, defaults: {
             user_id : req.body.sender,
             room_id : req.body.room_id,
             last_message : req.body.contents,
@@ -83,6 +80,7 @@ const findOrCreateUserRooms = (req, res, roomId) => {
         }
         }).spread((rooms, created) => {
             if (created) {
+
                 res.send(rooms)
             } else {
                 models.UserRooms.update({
