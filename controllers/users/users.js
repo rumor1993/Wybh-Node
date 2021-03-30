@@ -52,9 +52,9 @@ exports.findMessageByUsersId = async ( req , res) => {
                 }
             }
         ],
-        where: {
-            room_user_list: req.params.id,
-        } 
+        // where: {
+        //     room_user_list: req.params.id,
+        // } 
     })
 
     res.send(userRooms)
