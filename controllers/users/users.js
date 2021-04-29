@@ -1,6 +1,7 @@
 const { includes } = require("../../models")
 const models = require("../../models")
 const Message = require("../../models/Message")
+const { Op } = require("sequelize");
 
 exports.findUsers = ( _ , res) => {
     models.Users.findAll({
@@ -48,8 +49,12 @@ exports.findMessageByUsersId = async ( req , res) => {
             {
                 model: models.Message,
                 where: {
-                    recipient: req.params.id    
-                }
+                    [Op.or]: [{
+                        sender: req.params.id,
+                    }, {
+                        recipient: req.params.id
+                    }],
+                },
             }
         ],
         // where: {
