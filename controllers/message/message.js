@@ -24,10 +24,12 @@ exports.createMessage = async ( req , res ) => {
 
     if (!req.body.sender) {
         res.send("보낸사람이 없습니다")
+        res.end()
     } 
 
     if (!req.body.sex) {
         res.send("성별이 없습니다")
+        res.end()
     }
     
     if (isRandom) {
