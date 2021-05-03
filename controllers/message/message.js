@@ -21,9 +21,18 @@ exports.createMessage = async ( req , res ) => {
     if (req.body.recipient) {
         isRandom = false
     }
+
+    if (!req.body.sender) {
+        // 
+    } 
+
+    if (!req.body.sex) {
+        // 
+    }
     
     if (isRandom) {
         const randomUser = await models.Users.findAll({
+            where: {sex: req.body.sex},
             order: sequelize.random(),
             limit: 1
         })
