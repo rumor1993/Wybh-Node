@@ -96,7 +96,7 @@ const findOrCreateUserRooms =  (req, res, roomId) => {
                 }, {where: {room_id : req.body.room_id}})
                 res.send(rooms)
             }
-            await models.Message.create(req.body)
+            models.Message.create(req.body)
         }) 
 }
 
