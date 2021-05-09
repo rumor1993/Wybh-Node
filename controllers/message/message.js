@@ -97,6 +97,7 @@ const findOrCreateUserRooms =  (req, res, roomId) => {
             if (created) {
                 res.send(rooms)
             } else {
+                req.body.room_id = rooms.room_id
                 models.UserRooms.update({
                     last_message : req.body.contents,
                 }, {where: {room_id : req.body.room_id}})
