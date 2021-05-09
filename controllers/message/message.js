@@ -1,6 +1,7 @@
 const { sequelize } = require("../../models")
 const models = require("../../models")
 const Message = require("../../models/Message")
+const { Op } = require("sequelize");
 
 exports.findMessage = ( _ , res) => {
     models.Message.findAll({
@@ -80,7 +81,12 @@ const findMaxRoomId = async () => {
 
 const findOrCreateUserRooms =  (req, res, roomId) => {
     models.UserRooms.findOrCreate({
-        where : {room_id : req.body.room_id}, defaults: {
+        where : {
+            [Op.or]: [{
+                sender: req.params.id,
+            }, {
+                recipient: req.params.id
+            }],}, defaults: {
             user_id : req.body.sender,
             room_id : req.body.room_id,
             last_message : req.body.contents,
