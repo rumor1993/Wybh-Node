@@ -87,7 +87,8 @@ const findOrCreateUserRooms = (req, res, roomId) => {
             user_id : req.body.sender,
             room_id : req.body.room_id,
             last_message : req.body.contents,
-            room_user_list : req.body.recipient,    
+            room_user_list : req.body.recipient,   
+            room_user_sex : req.body.sex 
         }
         }).spread((rooms, created) => {
             if (created) {
