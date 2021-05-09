@@ -15,7 +15,8 @@ module.exports = function(sequelize, DataTypes){
 
     UserRooms.associate = function (models) {
         models.UserRooms.hasMany(models.Message, {
-            foreignKey: "room_id"
+            foreignKey: "room_id",
+            sourceKey: 'room_id'
         })
     }
 
