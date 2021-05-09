@@ -83,9 +83,9 @@ const findOrCreateUserRooms =  (req, res, roomId) => {
     models.UserRooms.findOrCreate({
         where : {
             [Op.or]: [{
-                sender: req.body.sender,
+                user_id: req.body.sender, room_user_list: req.body.recipient
             }, {
-                recipient: req.body.recipient
+                room_user_list: req.body.sender, user_id: req.body.recipient
             }],}, defaults: {
             user_id : req.body.sender,
             room_id : req.body.room_id,
