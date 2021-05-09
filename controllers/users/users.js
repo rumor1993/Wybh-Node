@@ -29,7 +29,7 @@ exports.updateUsers = ( req , res ) => {
         {
             id : req.body.id,
             name : req.body.name,
-            sex : req.body.price,
+            sex : req.body.sex,
             age : req.body.age,
             area : req.body.area
         }, 

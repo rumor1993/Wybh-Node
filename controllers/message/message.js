@@ -91,7 +91,6 @@ const findOrCreateUserRooms = (req, res, roomId) => {
         }
         }).spread((rooms, created) => {
             if (created) {
-
                 res.send(rooms)
             } else {
                 models.UserRooms.update({
@@ -119,7 +118,7 @@ exports.updateMessage = ( req , res ) => {
         {
             id : req.body.id,
             name : req.body.name,
-            sex : req.body.price,
+            sex : req.body.sex,
             age : req.body.age,
             area : req.body.area
         }, 

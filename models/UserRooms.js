@@ -8,7 +8,8 @@ module.exports = function(sequelize, DataTypes){
             last_message: {type: DataTypes.STRING },
             profile_image: {type: DataTypes.STRING },
             room_user_name: {type: DataTypes.STRING },
-            room_user_list: {type: DataTypes.STRING }
+            room_user_list: {type: DataTypes.STRING },
+            room_user_sex: {type: DataTypes.STRING }
         }
     );
 
