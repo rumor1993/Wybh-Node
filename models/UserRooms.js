@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes){
     const UserRooms = sequelize.define('UserRooms',
         {
             user_id: {type: DataTypes.STRING },
-            room_id: {type: DataTypes.STRING },
+            room_id: { type: DataTypes.INTEGER, primaryKey: true },
             last_message: {type: DataTypes.STRING },
             profile_image: {type: DataTypes.STRING },
             room_user_name: {type: DataTypes.STRING },
@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes){
     );
 
     UserRooms.associate = function (models) {
-        models.UserRooms.hasMany(models.Message, {
+        models.UserRooms.belongsToMany(models.Message, {
             foreignKey: "room_id",
         })
     }
