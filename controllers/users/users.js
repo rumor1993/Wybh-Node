@@ -18,9 +18,11 @@ exports.findUsersById = ( req , res) => {
 
 exports.createUsers = ( req , res ) => {
     models.Users.create(req.body).then(() => {
-        res.send("회원가입에 성공했습니다")
+        const jsonData = { "code": 200, "message": "성공적으로 데이터가 삽입되었습니다"}
+        res.send(jsonData)
     }).catch((e) => {
-        res.send(e)
+        const jsonData = { "code": "", "message": "회원가입에 실패했습니다"} 
+        res.send(jsonData)
     })
 }
 
