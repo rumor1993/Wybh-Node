@@ -57,6 +57,8 @@ exports.findMessageByUsersId = async ( req , res) => {
                         recipient: req.params.id
                     }],
                 },
+                order: [["createdAt", "DESC"]],
+                limit: 1
             }
         ],
         // where: {
