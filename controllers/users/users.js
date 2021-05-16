@@ -48,6 +48,10 @@ exports.findMessageByUsersId = async ( req , res) => {
     let list = []
     const userRooms = await models.UserRooms.findAll({
         include: [
+            // {
+            //     model: models.Users,
+            //     where: {id: req.params.id}
+            // },
             {
                 model: models.Message,
                 where: {
@@ -56,21 +60,19 @@ exports.findMessageByUsersId = async ( req , res) => {
                     }, {
                         recipient: req.params.id
                     }],
-                },
-                order: [["createdAt", "DESC"]],
-                limit: 1
+                    order: [["createdAt", "DESC"]],
+                }, limit: 1
             }
         ],
         // where: {
         //     room_user_list: req.params.id,
         // } 
+    }).then((data) => {    
+        models.Users.findByPk(data[0].room_user_list).then((user) => {
+            data[0].room_user_list = user
+            res.send(data)
+        }) 
     })
-
-    models.Users.findByPk(req.params.id).then((user) => {
-        userRooms[0].room_user_list = user
-        res.send(userRooms)
-    }) 
-
 }
 
 exports.deleteUserRooms = (req, res) => {

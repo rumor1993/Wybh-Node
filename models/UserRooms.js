@@ -18,7 +18,14 @@ module.exports = function(sequelize, DataTypes){
             foreignKey: "room_id",
             sourceKey: "room_id"
         })
+
+        models.UserRooms.belongsTo(models.Users, {
+            foreignKey: "room_user_list",
+            sourceKey: "id"
+        })
     }
+
+
 
     return UserRooms;
 } 
