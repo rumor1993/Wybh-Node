@@ -64,7 +64,11 @@ exports.findMessageByUsersId = async ( req , res) => {
         // } 
     })
 
-    res.send(userRooms)
+    models.Users.findByPk(req.params.id).then((user) => {
+        userRooms[0].room_user_list = user
+        res.send(userRooms)
+    }) 
+
 }
 
 exports.deleteUserRooms = (req, res) => {
