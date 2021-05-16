@@ -63,15 +63,17 @@ exports.findMessageByUsersId = async ( req , res) => {
                 }, limit: 1
             }
         ],
-        // where: {
-        //     room_user_list: req.params.id,
-        // } 
-    }).then((data) => {    
-        models.Users.findByPk(data[0].room_user_list).then((user) => {
-            data[0].room_user_list = user
-            res.send(data)
-        }) 
     })
+
+    for (const key in userRooms) {
+        if (Object.hasOwnProperty.call(userRooms, key)) {
+            const element = userRooms[key];
+            await models.Users.findByPk(element.room_user_list).then((user) => {
+                element.room_user_list = user
+            }) 
+        }
+    }
+    res.send(userRooms)
 }
 
 exports.deleteUserRooms = (req, res) => {
