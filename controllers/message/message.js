@@ -16,6 +16,14 @@ exports.findMessageById = ( req , res) => {
     }) 
 }
 
+exports.findMessageRoomsById = ( req, res) => {
+    models.Message.findAll({
+        where: {room_id: req.params.id}
+    }).then((message) => {
+        res.send(message)
+    })
+}
+
 exports.createMessage = async ( req , res ) => {
     let isRandom = true
 
