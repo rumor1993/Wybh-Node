@@ -2,6 +2,7 @@ const { sequelize } = require("../../models")
 const models = require("../../models")
 const Message = require("../../models/Message")
 const { Op } = require("sequelize");
+const fcm = require("../fcm/index")
 
 exports.findMessage = ( _ , res) => {
     models.Message.findAll({
@@ -111,7 +112,36 @@ const findOrCreateUserRooms =  (req, res, roomId) => {
                 }, {where: {room_id : req.body.room_id}})
                 res.send(rooms)
             }
-            models.Message.create(req.body)
+            models.Message.create(req.body).then(() => {
+                
+                // 토큰수 많큼 For문
+                models.Fcm.findAll({
+                    where: {user_id: req.body.recipient}
+                }).then((data)=> {
+                    data.forEach((ele)=>{
+                        var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
+                            to: ele.fcm_id, 
+                            
+                            notification: {
+                                title: '[별똥별] 쪽지가 왔습니다.', 
+                                body: req.body.contents
+                            }
+                        };
+
+                        fcm.send(message, function(err, response){
+                            if (err) {
+                                console.log("Something has gone wrong!");
+                            } else {
+                                console.log("Successfully sent with response: ", response);
+                            }
+                        });
+
+                    })
+                })
+
+               
+                    
+            })
         }) 
 }
 

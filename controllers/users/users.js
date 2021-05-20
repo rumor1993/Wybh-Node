@@ -24,6 +24,13 @@ exports.createUsers = ( req , res ) => {
         const jsonData = { "code": "", "message": "회원가입에 실패했습니다"} 
         res.send(jsonData)
     })
+
+    if (req.body.token) {
+        console.log("토큰이 있음")
+        models.Fcm.create({user_id: req.body.id, fcm_id: req.body.token})
+    } else {
+        console.log("토큰이 없음")
+    }
 }
 
 exports.updateUsers = ( req , res ) => {
@@ -48,10 +55,6 @@ exports.findMessageByUsersId = async ( req , res) => {
     let list = []
     const userRooms = await models.UserRooms.findAll({
         include: [
-            // {
-            //     model: models.Users,
-            //     where: {id: req.params.id}
-            // },
             {
                 model: models.Message,
                 where: {
