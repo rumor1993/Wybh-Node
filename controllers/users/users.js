@@ -3,6 +3,21 @@ const models = require("../../models")
 const Message = require("../../models/Message")
 const { Op } = require("sequelize");
 
+/**
+ * @api {get} /users 모든 유저 조회
+ * @apiName GetUsers
+ * @apiGroup User
+ *
+ *
+ * @apiSuccess {String} id 유저 아이디
+ * @apiSuccess {String} name 유저 이름 
+ * @apiSuccess {String} sex 성별
+ * @apiSuccess {String} age  나이
+ * @apiSuccess {String} area  지역
+ * @apiSuccess {String} createdAt  생성일
+ * @apiSuccess {String} updateAt  수정일
+ */
+
 exports.findUsers = ( _ , res) => {
     models.Users.findAll({
     }).then((users) => {
@@ -10,11 +25,43 @@ exports.findUsers = ( _ , res) => {
     })
 }
 
+/**
+ * @api {get} /users/:id 모든 유저 조회
+ * @apiName GetUsersById
+ * @apiGroup User
+ *
+ * @apiParam {String} id 유저 아이디
+ 
+ * @apiSuccess {String} id 유저 아이디
+ * @apiSuccess {String} name 유저 이름 
+ * @apiSuccess {String} sex 성별
+ * @apiSuccess {String} age  나이
+ * @apiSuccess {String} area  지역
+ * @apiSuccess {String} createdAt  생성일
+ * @apiSuccess {String} updateAt  수정일
+ */
+
 exports.findUsersById = ( req , res) => {
     models.Users.findByPk(req.params.id).then((user) => {
         res.send(user);
     }) 
 }
+
+/**
+ * @api {post} /users 모든 유저 조회
+ * @apiName CreateUsers
+ * @apiGroup User
+ *
+ * @apiParam {String} id 유저 아이디
+ * @apiParam {String} name 유저 이름
+ * @apiParam {String} sex 유저 성별
+ * @apiParam {String} age 유저 나이
+ * @apiParam {String} area 유저 지역
+ * @apiParam {String} token 유저 푸시 토큰
+ * 
+ * @apiSuccess {Number} code 200: 성공
+ * @apiSuccess {String} message API Code 내용 
+ */
 
 exports.createUsers = ( req , res ) => {
     models.Users.create(req.body).then(() => {
@@ -50,6 +97,25 @@ exports.updateUsers = ( req , res ) => {
     });
 } 
 
+/**
+ * @api {get} /users/rooms/:user_id 특정 사용자 채팅방 리스트
+ * @apiName GetUserRooms
+ * @apiGroup User
+ *
+ * @apiParam {String} id 유저 아이디
+ * 
+ * @apiSuccess {String} user_id 사용자 ID.
+ * @apiSuccess {Number} room_id  채팅방 ID.
+ * @apiSuccess {String} last_message 메시지 내용.
+ * @apiSuccess {String} profile_image 프로필 이미지
+ * @apiSuccess {String} room_user_name 상대방 이름 ( 삭제 예장 )
+ * @apiSuccess {String[]} room_user_list  상대방 정보
+ * @apiSuccess {String} room_user_sex  상대방 성별 ( 삭제 예정 )
+ * @apiSuccess {String} room_user_list  상대방 정보 
+ * @apiSuccess {String} createdAt  생성일
+ * @apiSuccess {String} updateAt  수정일
+ * @apiSuccess {String} ㅡㄷㄴㄴㅁㅎㄷ  수정일
+ */
 
 exports.findMessageByUsersId = async ( req , res) => {
     let list = []
