@@ -114,7 +114,6 @@ exports.updateUsers = ( req , res ) => {
  * @apiSuccess {String} room_user_list  상대방 정보 
  * @apiSuccess {String} createdAt  생성일
  * @apiSuccess {String} updateAt  수정일
- * @apiSuccess {String} ㅡㄷㄴㄴㅁㅎㄷ  수정일
  */
 
 exports.findMessageByUsersId = async ( req , res) => {
