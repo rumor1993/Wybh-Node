@@ -26,7 +26,7 @@ exports.findUsers = ( _ , res) => {
 }
 
 /**
- * @api {get} /users/:id 모든 유저 조회
+ * @api {get} /users/:id 특정 유저 조회
  * @apiName GetUsersById
  * @apiGroup User
  *
@@ -48,7 +48,7 @@ exports.findUsersById = ( req , res) => {
 }
 
 /**
- * @api {post} /users 모든 유저 조회
+ * @api {post} /users 회원가입
  * @apiName CreateUsers
  * @apiGroup User
  *
