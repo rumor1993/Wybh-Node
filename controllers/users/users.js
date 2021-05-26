@@ -144,6 +144,10 @@ exports.findMessageByUsersId = async ( req , res) => {
         if (Object.hasOwnProperty.call(userRooms, key)) {
             const element = userRooms[key];
 
+
+            console.log(" element.room_user_list ", element.room_user_list)
+            console.log(" req.params.id ", req.params.id)
+
             if (element.room_user_list = req.params.id) {
                 let user_id = element.user_id
                 element.user_id = element.room_user_list
