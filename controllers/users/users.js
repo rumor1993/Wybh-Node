@@ -131,6 +131,7 @@ exports.findMessageByUsersId = async ( req , res) => {
                 }, limit: 1
             }
         ],
+        where: {user_id: req.params.id}
     })
 
     for (const key in userRooms) {
