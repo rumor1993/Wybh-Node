@@ -145,10 +145,10 @@ exports.findMessageByUsersId = async ( req , res) => {
             const element = userRooms[key];
 
             if (element.room_user_list = req.params.id) {
-                element.user_id = element.room_user_list;
                 await models.Users.findByPk(element.user_id).then((user) => {
                     element.room_user_list = user
                 }) 
+                element.user_id = element.room_user_list;
             } else {
                 await models.Users.findByPk(element.room_user_list).then((user) => {
                     element.room_user_list = user
