@@ -249,31 +249,30 @@ exports.createMessage = async (req, res) => {
       });
     });
   };
-};
 
-exports.messageDelete = (req, res) => {
-  models.Message.destroy();
-};
+  exports.messageDelete = (req, res) => {
+    models.Message.destroy();
+  };
 
-exports.messageRoomValidation = (req, res) => {};
+  exports.messageRoomValidation = (req, res) => {};
 
-exports.reandomSendMessage = (req, res) => {
-  models.Message.create(req.body);
-};
+  exports.reandomSendMessage = (req, res) => {
+    models.Message.create(req.body);
+  };
 
-exports.updateMessage = (req, res) => {
-  models.Message.update(
-    {
-      id: req.body.id,
-      name: req.body.name,
-      sex: req.body.price,
-      age: req.body.age,
-      area: req.body.area,
-    },
-    {
-      where: { id: req.params.id },
-    }
-  ).then((message) => {
-    res.send(message);
-  });
-};
+  exports.updateMessage = (req, res) => {
+    models.Message.update(
+      {
+        id: req.body.id,
+        name: req.body.name,
+        sex: req.body.price,
+        age: req.body.age,
+        area: req.body.area,
+      },
+      {
+        where: { id: req.params.id },
+      }
+    ).then((message) => {
+      res.send(message);
+    });
+  };
