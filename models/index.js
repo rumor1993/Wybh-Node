@@ -2,6 +2,9 @@ var Sequelize = require('sequelize');
 var path = require('path');
 var fs = require('fs');
 var dotenv = require('dotenv');
+const Users = require('./Users');
+const UserRooms = require('./UserRooms');
+const Message = require('./Message');
 
 dotenv.config(); //LOAD CONFIG
 
@@ -37,5 +40,6 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
 
 module.exports = db; 

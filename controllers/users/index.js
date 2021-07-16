@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const UserRooms = require('../../models/UserRooms');
 const router = Router();
 const controllers = require('./users');
 
@@ -15,6 +16,8 @@ router.post('/', controllers.createUsers);
 router.put("/:id", controllers.updateUsers);
 
 router.get("/rooms/:id", controllers.findMessageByUsersId);
+
+router.delete("rooms/:id", controllers.deleteUserRooms)
 
 module.exports = router;
 
