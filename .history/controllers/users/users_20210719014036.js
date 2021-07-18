@@ -85,7 +85,7 @@ exports.createUsers = (req, res) => {
 
 /**
  * @api {delete} /users/:id
- * @apiName deleteUsers 회원탈퇴
+ * @apiName GetUserRooms
  * @apiGroup User
  *
  * @apiParam {String} id 유저 아이디
@@ -98,11 +98,11 @@ exports.deleteUsers = (req, res) => {
 
 /**
  * @api {put} /users/:id
- * @apiName updateUsersByToken 토큰 생성 및 제거
+ * @apiName updateUsersByToken
  * @apiGroup User
  *
  * @apiParam {String} id 유저 아이디
- * @apiParam {String} token 토큰값 ( 토큰 제거시 "" / 토근 생성시 "{토근값}")
+ * @apiParam {String} token 토큰값
  *
  * @apiSuccess {String} msg token
  */
