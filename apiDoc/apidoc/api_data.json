@@ -334,6 +334,91 @@
     "groupTitle": "Message"
   },
   {
+    "type": "put",
+    "url": "/message/:id\"",
+    "title": "특정 채팅방 메시지 읽음처리 (ROOM_ID)",
+    "name": "readMessage",
+    "group": "Message",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Messages Room unique ID.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "message_id",
+            "description": "<p>메시지 ID.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "room_id",
+            "description": "<p>채팅방 ID.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "contents",
+            "description": "<p>메시지 내용.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "sender",
+            "description": "<p>송신자</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "recipient",
+            "description": "<p>수신자</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "createdAt",
+            "description": "<p>생성일</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "updateAt",
+            "description": "<p>수정일</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "read_yn",
+            "description": "<p>읽음여부 (수신자기준)</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/message/message.js",
+    "groupTitle": "Message"
+  },
+  {
     "type": "post",
     "url": "/users",
     "title": "회원가입",
@@ -638,6 +723,85 @@
             "optional": false,
             "field": "updateAt",
             "description": "<p>수정일</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/users/users.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "delete",
+    "url": "/users/:id",
+    "title": "회원탈퇴",
+    "name": "deleteUsers",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>유저 아이디</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>Data was deleted!</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/users/users.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "put",
+    "url": "/users/:id",
+    "title": "토큰 생성 및 제거",
+    "name": "updateUsersByToken",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>유저 아이디</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": "<p>토큰값 ( 토큰 제거시 &quot;&quot; / 토근 생성시 &quot;{토근값}&quot;)</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>token</p>"
           }
         ]
       }

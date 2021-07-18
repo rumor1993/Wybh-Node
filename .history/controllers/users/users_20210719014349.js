@@ -84,15 +84,14 @@ exports.createUsers = (req, res) => {
 };
 
 /**
- * @api {delete} /users/:id 회원탈퇴
- * @apiName deleteUsers
+ * @api {delete} /users/:id
+ * @apiName deleteUsers 회원탈퇴
  * @apiGroup User
  *
  * @apiParam {String} id 유저 아이디
  *
  * @apiSuccess {String} msg Data was deleted!
  */
-
 exports.deleteUsers = (req, res) => {
   models.Users.destroy({ where: { id: req.params.id } }).then((_) => res.send({ msg: "Data was deleted!" }));
 };
@@ -107,7 +106,6 @@ exports.deleteUsers = (req, res) => {
  *
  * @apiSuccess {String} msg token
  */
-
 exports.updateUsersByToken = (req, res) => {
   models.Users.update(
     {

@@ -150,8 +150,8 @@ exports.createMessage = async (req, res) => {
 };
 
 /**
- * @api {put} /message/:id" 특정 채팅방 메시지 읽음처리 (ROOM_ID)
- * @apiName readMessage
+ * @api {POST} /message/:id" 특정 채팅방 메시지 읽음처리 (ROOM_ID)
+ * @apiName GetMessageByRoomId
  * @apiGroup Message
  *
  * @apiParam {Number} id Messages Room unique ID.
@@ -166,13 +166,13 @@ exports.createMessage = async (req, res) => {
  * @apiSuccess {String} read_yn  읽음여부 (수신자기준)
  */
 
-exports.readMessage = (req, res) => {
+const readMessage = (req, res) => {
   models.Message.update(
     {
       read_yn: "Y",
     },
     {
-      where: { message_id: req.params.id },
+      where: { id: req.params.id },
     }
   );
 };

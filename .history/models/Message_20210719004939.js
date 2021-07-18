@@ -5,10 +5,7 @@ module.exports = function (sequelize, DataTypes) {
     contents: { type: DataTypes.TEXT },
     sender: { type: DataTypes.STRING },
     recipient: { type: DataTypes.STRING },
-<<<<<<< HEAD
-=======
     read_yn: { type: DataTypes.STRING },
->>>>>>> real-master
   });
   return Message;
 };

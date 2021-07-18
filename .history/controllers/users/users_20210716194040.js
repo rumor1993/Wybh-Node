@@ -83,44 +83,6 @@ exports.createUsers = (req, res) => {
   }
 };
 
-/**
- * @api {delete} /users/:id 회원탈퇴
- * @apiName deleteUsers
- * @apiGroup User
- *
- * @apiParam {String} id 유저 아이디
- *
- * @apiSuccess {String} msg Data was deleted!
- */
-
-exports.deleteUsers = (req, res) => {
-  models.Users.destroy({ where: { id: req.params.id } }).then((_) => res.send({ msg: "Data was deleted!" }));
-};
-
-/**
- * @api {put} /users/:id 토큰 생성 및 제거
- * @apiName updateUsersByToken
- * @apiGroup User
- *
- * @apiParam {String} id 유저 아이디
- * @apiParam {String} token 토큰값 ( 토큰 제거시 "" / 토근 생성시 "{토근값}")
- *
- * @apiSuccess {String} msg token
- */
-
-exports.updateUsersByToken = (req, res) => {
-  models.Users.update(
-    {
-      token: req.body.token,
-    },
-    {
-      where: { id: req.params.id },
-    }
-  ).then((user) => {
-    res.send({ msg: "logout" });
-  });
-};
-
 exports.updateUsers = (req, res) => {
   models.Users.update(
     {

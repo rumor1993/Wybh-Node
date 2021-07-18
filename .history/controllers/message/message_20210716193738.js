@@ -149,34 +149,6 @@ exports.createMessage = async (req, res) => {
   }
 };
 
-/**
- * @api {put} /message/:id" 특정 채팅방 메시지 읽음처리 (ROOM_ID)
- * @apiName readMessage
- * @apiGroup Message
- *
- * @apiParam {Number} id Messages Room unique ID.
- *
- * @apiSuccess {Number} message_id 메시지 ID.
- * @apiSuccess {Number} room_id  채팅방 ID.
- * @apiSuccess {String} contents 메시지 내용.
- * @apiSuccess {String} sender  송신자
- * @apiSuccess {String} recipient 수신자
- * @apiSuccess {String} createdAt  생성일
- * @apiSuccess {String} updateAt  수정일
- * @apiSuccess {String} read_yn  읽음여부 (수신자기준)
- */
-
-exports.readMessage = (req, res) => {
-  models.Message.update(
-    {
-      read_yn: "Y",
-    },
-    {
-      where: { message_id: req.params.id },
-    }
-  );
-};
-
 const findMaxRoomId = async () => {
   let result;
   await models.Message.max("room_id").then((item) => {
