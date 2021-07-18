@@ -98,21 +98,20 @@ exports.deleteUsers = (req, res) => {
 
 /**
  * @api {put} /users/
- * @apiName updateUsersByToken
+ * @apiName GetUserRooms
  * @apiGroup User
  *
  * @apiParam {String} id 유저 아이디
- * @apiParam {String} token 토큰값
  *
- * @apiSuccess {String} msg token
+ * @apiSuccess {String} msg logout
  */
-exports.updateUsersByToken = (req, res) => {
+exports.logoutUsers = (req, res) => {
   models.Users.update(
     {
-      token: req.body.token,
+      token: "",
     },
     {
-      where: { id: req.params.id },
+      where: { id: req.body.id },
     }
   ).then((user) => {
     res.send({ msg: "logout" });

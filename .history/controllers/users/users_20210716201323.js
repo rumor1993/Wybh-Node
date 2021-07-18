@@ -112,7 +112,7 @@ exports.updateUsersByToken = (req, res) => {
       token: req.body.token,
     },
     {
-      where: { id: req.params.id },
+      where: { id: req.body.id },
     }
   ).then((user) => {
     res.send({ msg: "logout" });

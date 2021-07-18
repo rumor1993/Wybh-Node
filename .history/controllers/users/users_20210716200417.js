@@ -83,40 +83,8 @@ exports.createUsers = (req, res) => {
   }
 };
 
-/**
- * @api {delete} /users/:id
- * @apiName GetUserRooms
- * @apiGroup User
- *
- * @apiParam {String} id 유저 아이디
- *
- * @apiSuccess {String} msg Data was deleted!
- */
 exports.deleteUsers = (req, res) => {
-  models.Users.destroy({ where: { id: req.params.id } }).then((_) => res.send({ msg: "Data was deleted!" }));
-};
-
-/**
- * @api {put} /users/
- * @apiName updateUsersByToken
- * @apiGroup User
- *
- * @apiParam {String} id 유저 아이디
- * @apiParam {String} token 토큰값
- *
- * @apiSuccess {String} msg token
- */
-exports.updateUsersByToken = (req, res) => {
-  models.Users.update(
-    {
-      token: req.body.token,
-    },
-    {
-      where: { id: req.params.id },
-    }
-  ).then((user) => {
-    res.send({ msg: "logout" });
-  });
+  models.Users.destroy({ where: { id: req.body.id } }).then((_) => console.log("Data was deleted!"));
 };
 
 exports.updateUsers = (req, res) => {
