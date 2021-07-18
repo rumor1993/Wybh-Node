@@ -84,8 +84,8 @@ exports.createUsers = (req, res) => {
 };
 
 /**
- * @api {delete} /users/:id 회원탈퇴
- * @apiName deleteUsers
+ * @api {delete} /users/:id
+ * @apiName deleteUsers 회원탈퇴
  * @apiGroup User
  *
  * @apiParam {String} id 유저 아이디

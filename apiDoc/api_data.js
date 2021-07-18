@@ -734,8 +734,8 @@ define({ "api": [
   {
     "type": "delete",
     "url": "/users/:id",
-    "title": "",
-    "name": "deleteUsers_회원탈퇴",
+    "title": "회원탈퇴",
+    "name": "deleteUsers",
     "group": "User",
     "parameter": {
       "fields": {
@@ -770,8 +770,8 @@ define({ "api": [
   {
     "type": "put",
     "url": "/users/:id",
-    "title": "",
-    "name": "updateUsersByToken_토큰_생성_및_제거",
+    "title": "토큰 생성 및 제거",
+    "name": "updateUsersByToken",
     "group": "User",
     "parameter": {
       "fields": {
