@@ -166,13 +166,13 @@ exports.createMessage = async (req, res) => {
  * @apiSuccess {String} read_yn  읽음여부 (수신자기준)
  */
 
-exports.readMessage = (req, res) => {
+const readMessage = (req, res) => {
   models.Message.update(
     {
       read_yn: "Y",
     },
     {
-      where: { message_id: req.params.id },
+      where: { id: req.params.id },
     }
   );
 };
