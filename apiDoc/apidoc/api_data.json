@@ -497,42 +497,6 @@
     "groupTitle": "User"
   },
   {
-    "type": "delete",
-    "url": "/users/:id",
-    "title": "",
-    "name": "GetUserRooms",
-    "group": "User",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>유저 아이디</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "msg",
-            "description": "<p>Data was deleted!</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "controllers/users/users.js",
-    "groupTitle": "User"
-  },
-  {
     "type": "get",
     "url": "/users/rooms/:user_id",
     "title": "특정 사용자 채팅방 리스트",
@@ -768,9 +732,45 @@
     "groupTitle": "User"
   },
   {
+    "type": "delete",
+    "url": "/users/:id",
+    "title": "회원탈퇴",
+    "name": "deleteUsers",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>유저 아이디</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>Data was deleted!</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/users/users.js",
+    "groupTitle": "User"
+  },
+  {
     "type": "put",
-    "url": "/users/",
-    "title": "",
+    "url": "/users/:id",
+    "title": "토큰 생성 및 제거",
     "name": "updateUsersByToken",
     "group": "User",
     "parameter": {
@@ -788,7 +788,7 @@
             "type": "String",
             "optional": false,
             "field": "token",
-            "description": "<p>토큰값</p>"
+            "description": "<p>토큰값 ( 토큰 제거시 &quot;&quot; / 토근 생성시 &quot;{토근값}&quot;)</p>"
           }
         ]
       }
